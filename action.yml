@@ -1,11 +1,31 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'sync-to-tencent-cos'
+description: 'sync to tencent cos'
+author: 'zhouxhere'
 inputs:
-  milliseconds: # change this
+  token:
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+    description: 'github token'
+    default: ${{ github.token }}
+  branch:
+    required: true
+    description: 'repository branch'
+    default: 'main'
+  secretId:
+    required: true
+    description: 'tencent cos secretId'
+  secretKey:
+    required: true
+    description: 'tencent cos secretKey'
+  bucket:
+    required: true
+    description: 'tencent cos bucket'
+  region:
+    required: true
+    description: 'tencent cos region'
+  subPath:
+    required: true
+    description: 'tencent cos sub path'
+    default: 'github'
 runs:
   using: 'node16'
   main: 'dist/index.js'
