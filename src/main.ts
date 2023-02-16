@@ -1,7 +1,7 @@
 import * as core from '@actions/core'
 import * as github from '@actions/github'
 import {existsSync, readFileSync} from 'fs'
-import COS from 'cos-js-sdk-v5'
+import COS from 'cos-nodejs-sdk-v5'
 
 const githubToken = core.getInput('token', {required: true})
 const branch = core.getInput('branch', {required: true})
@@ -74,12 +74,9 @@ async function run(): Promise<void> {
             {
               Bucket: bucket,
               Region: region,
-              Body: file.filename,
+              FilePath: file.filename,
               Key: `${subPath}/${file.filename}`,
-              SliceSize: 1024 * 1024 * 5,
-              onTaskStart: TaskInfo => {
-                core.debug(`start upload ${TaskInfo.Key} `)
-              }
+              SliceSize: 1024 * 1024 * 5
             },
             err => {
               if (err) {
